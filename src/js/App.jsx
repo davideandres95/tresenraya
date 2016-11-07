@@ -1,3 +1,6 @@
+const Cabecera = require('./Cabecera.jsx');
+const Tablero = require('./Tablero.jsx');
+
 const JUGADORX = "jugador 1 - las X";
 const JUGADOR0 = "jugador 2 - los 0";
 const VALORES = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
@@ -8,7 +11,7 @@ var App = React.createClass({
 			valores: VALORES
 		};
 	},
-	appClick: function (numeroFila, numeroColumna){
+	appClick: function (numeroFila, numeroColumna) {
 		let valores = this.state.valores;
 		let nuevoValor = this.state.turno === JUGADORX ? 'X': '0';
 		valores [numeroFila][numeroColumna] = nuevoValor;
@@ -22,12 +25,10 @@ var App = React.createClass({
  		return (
  			<div>
  				<Cabecera texto={texto}/>
- 				<Tablero valores = {this.state.valores}
+ 				<Tablero valores={this.state.valores}
  					manejadorTableroClick ={this.appClick}/>
- 			</div>			
+ 			</div>
 		)
 	}
-
 });
 module.exports = App;
-
