@@ -25,6 +25,23 @@ var App = React.createClass({
 			valores: this.state.valores
 		});
 	},
+	checkWinner: function checkWinner() {
+		var valores = this.state.valores;
+		for (var i = 0; i < 3; i++) {
+			if (valores[i][0] != '-' && valores[i][0] === valores[i][1] && valores[i][1] === valores[i][2]) {
+				alert("Ha ganado el " + this.state.turno);
+				break;
+			} else if (valores[0][i] != '-' && valores[0][i] === valores[1][i] && valores[1][i] === valores[2][i]) {
+				alert("Ha ganado el " + this.state.turno);
+				break;
+			}
+		}
+		if (valores[0][0] != '-' && valores[0][0] === valores[1][1] && valores[1][1] === valores[2][2]) {
+			alert("Ha ganado el " + this.state.turno);
+		} else if (valores[0][2] != '-' && valores[0][2] === valores[1][1] && valores[1][1] === valores[2][0]) {
+			alert("Ha ganado el " + this.state.turno);
+		}
+	},
 	render: function render() {
 		var texto = "Turno del " + this.state.turno;
 		return React.createElement(
@@ -32,7 +49,8 @@ var App = React.createClass({
 			null,
 			React.createElement(Cabecera, { texto: texto }),
 			React.createElement(Tablero, { valores: this.state.valores,
-				manejadorTableroClick: this.appClick })
+				manejadorTableroClick: this.appClick,
+				manejadorGanador: this.checkWinner })
 		);
 	}
 });
@@ -59,7 +77,7 @@ module.exports = Cabecera;
 'use strict';
 
 var casillaStyle = {
-	height: '100`px',
+	height: '100px',
 	width: '100px'
 };
 
@@ -68,7 +86,7 @@ var Casilla = React.createClass({
 
 	casillaClick: function casillaClick() {
 		if (this.props.valor === "-") {
-			this.props.manejadorTableroClick(this.props.indiceFila, this.props.indiceColumna);
+			this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
 		}
 	},
 	render: function render() {
@@ -92,10 +110,11 @@ var Tablero = React.createClass({
 
 	tableroClick: function tableroClick(numeroFila, numeroColumna) {
 		this.props.manejadorTableroClick(numeroFila, numeroColumna);
+		this.props.manejadorGanador();
 	},
 	render: function render() {
 		var tablero = this.props.valores.map(function (valoresFila, indiceFila) {
-			var fila = valoresFIla.map(function (valor, indiceColumna) {
+			var fila = valoresFila.map(function (valor, indiceColumna) {
 				var mykey = "" + indiceFila + indiceColumna;
 				return React.createElement(Casilla, { valor: valor, indiceFila: indiceFila,
 					indiceColumna: indiceColumna, key: mykey, manejadorClick: this.tableroClick });

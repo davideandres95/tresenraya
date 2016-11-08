@@ -20,13 +20,33 @@ var App = React.createClass({
 			valores: this.state.valores
 		});
 	},
+	checkWinner:function(){
+		let valores = this.state.valores;
+		for(var i=0; i<3; i++){
+			if((valores[i][0]!='-')&&(valores[i][0]===valores[i][1])&&(valores[i][1]===valores[i][2])){
+				alert("Ha ganado el "+this.state.turno);
+				break;
+			}
+			else if ((valores[0][i]!='-')&&(valores[0][i]===valores[1][i])&&(valores[1][i]===valores[2][i])) {
+				alert("Ha ganado el "+this.state.turno);
+				break;
+			}
+		}
+		if((valores[0][0]!='-')&&(valores[0][0]===valores[1][1])&&(valores[1][1]===valores[2][2])){
+			alert("Ha ganado el "+this.state.turno);
+		}
+		else if ((valores[0][2]!='-')&&(valores[0][2]===valores[1][1])&&(valores[1][1]===valores[2][0])) {
+			alert("Ha ganado el "+this.state.turno);
+		}
+	},
 	render: function () {
  		var texto = "Turno del " + this.state.turno;
  		return (
  			<div>
  				<Cabecera texto={texto}/>
  				<Tablero valores={this.state.valores}
- 					manejadorTableroClick ={this.appClick}/>
+ 					manejadorTableroClick ={this.appClick}
+					manejadorGanador={this.checkWinner}/>
  			</div>
 		)
 	}

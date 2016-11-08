@@ -1,12 +1,12 @@
 const casillaStyle = {
-	height: '100`px',
+	height: '100px',
 	width: '100px'
 };
 
 let Casilla = React.createClass({
 	casillaClick: function (){
 		if (this.props.valor ==="-"){
-			this.props.manejadorTableroClick(this.props.indiceFila, this.props.indiceColumna);
+			this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
 		}
 	},
 	render: function (){

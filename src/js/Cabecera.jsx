@@ -3,7 +3,7 @@ var Cabecera = React.createClass({
 		return(
 			<header className="cabecera">
 				{this.props.texto}
-			</header>	
+			</header>
 		)
 	}
 });
