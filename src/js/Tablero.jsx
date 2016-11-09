@@ -1,4 +1,7 @@
-var Casilla = require("./Casilla.jsx");
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var Casilla = require('./Casilla.jsx');
 
 var Tablero = React.createClass({
 	tableroClick: function (numeroFila, numeroColumna){

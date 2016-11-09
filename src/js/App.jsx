@@ -1,3 +1,8 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+import { Button } from 'react-bootstrap';
+
 const Cabecera = require('./Cabecera.jsx');
 const Tablero = require('./Tablero.jsx');
 
@@ -19,6 +24,9 @@ var App = React.createClass({
 			turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
 			valores: this.state.valores
 		});
+	},
+	newGame: function (){
+		this.state.valores = VALORES;
 	},
 	checkWinner:function(){
 		let valores = this.state.valores;
@@ -47,6 +55,7 @@ var App = React.createClass({
  				<Tablero valores={this.state.valores}
  					manejadorTableroClick ={this.appClick}
 					manejadorGanador={this.checkWinner}/>
+				<Button bsStyle="primary" onClick={this.newGame}> Nueva Partida </Button>
  			</div>
 		)
 	}
