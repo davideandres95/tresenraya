@@ -38550,7 +38550,10 @@ var App = React.createClass({
 		});
 	},
 	newGame: function newGame() {
-		this.state.valores = VALORES;
+		this.setState({
+			turno: JUGADORX,
+			valores: VALORES
+		});
 	},
 	checkWinner: function checkWinner() {
 		var valores = this.state.valores;
@@ -38664,7 +38667,7 @@ var Tablero = React.createClass({
 			}, this);
 			return React.createElement(
 				'div',
-				null,
+				{ key: indiceFila },
 				fila
 			);
 		}, this);

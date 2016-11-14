@@ -26,7 +26,10 @@ var App = React.createClass({
 		});
 	},
 	newGame: function (){
-		this.state.valores = VALORES;
+		this.setState({
+			turno: JUGADORX,
+			valores: VALORES
+		});
 	},
 	checkWinner:function(){
 		let valores = this.state.valores;
@@ -53,7 +56,7 @@ var App = React.createClass({
  			<div>
  				<Cabecera texto={texto}/>
  				<Tablero valores={this.state.valores}
- 					manejadorTableroClick ={this.appClick}
+ 				  manejadorTableroClick ={this.appClick}
 					manejadorGanador={this.checkWinner}/>
 				<Button bsStyle="primary" onClick={this.newGame}> Nueva Partida </Button>
  			</div>
