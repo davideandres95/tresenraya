@@ -9,24 +9,44 @@ const Tablero = require('./Tablero.jsx');
 const JUGADORX = "jugador 1 - las X";
 const JUGADOR0 = "jugador 2 - los 0";
 const VALORES = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
+
 var App = React.createClass({
 	getInitialState: function () {
 		return {
 			turno: JUGADORX,
-			valores: VALORES
+			valores: VALORES,
+			xMoves: 0,
+			yMoves:0
 		};
 	},
 	appClick: function (numeroFila, numeroColumna) {
 		let valores = this.state.valores;
 		let nuevoValor = this.state.turno === JUGADORX ? 'X': '0';
 		valores [numeroFila][numeroColumna] = nuevoValor;
-		this.setState({
-			turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
-			valores: this.state.valores
-		});
+		if(this.state.turno === JUGADORX){
+			this.setState({
+				turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
+				valores: this.state.valores,
+				xMoves: this.state.xMoves + 1,
+				yMoves: this.state.yMoves
+			});
+		}
+		else{
+			this.setState({
+				turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
+				valores: this.state.valores,
+				xMoves: this.state.xMoves,
+				yMoves: this.state.yMoves + 1
+			});
+		}
 	},
 	newGame: function (){
-		this.state.valores = VALORES;
+		this.setState({
+			turno: JUGADORX,
+			valores: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
+			xMoves: 0,
+			yMoves:0
+		});
 	},
 	checkWinner:function(){
 		let valores = this.state.valores;
@@ -51,9 +71,9 @@ var App = React.createClass({
  		var texto = "Turno del " + this.state.turno;
  		return (
  			<div>
- 				<Cabecera texto={texto}/>
+ 				<Cabecera texto={texto} xMoves={this.state.xMoves} yMoves={this.state.yMoves}/>
  				<Tablero valores={this.state.valores}
- 					manejadorTableroClick ={this.appClick}
+ 				  manejadorTableroClick ={this.appClick}
 					manejadorGanador={this.checkWinner}/>
 				<Button bsStyle="primary" onClick={this.newGame}> Nueva Partida </Button>
  			</div>

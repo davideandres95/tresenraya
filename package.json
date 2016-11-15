@@ -1,4 +1,4 @@
-{
+  {
   "name": "tresenraya",
   "version": "1.0.0",
   "description": "",
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "static -p 3000",
-    "build": "browserify -t babelify src/js/index.jsx > src/build/index.js"
+    "build": "browserify -t babelify src/js/index.jsx > src/build/index.js",
+    "watch": "watchify -t babelify ./src/js/index.jsx -o ./src/build/index.js -v"
   },
   "author": "davideandres",
   "license": "ISC",
