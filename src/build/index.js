@@ -38531,28 +38531,44 @@ var Tablero = require('./Tablero.jsx');
 var JUGADORX = "jugador 1 - las X";
 var JUGADOR0 = "jugador 2 - los 0";
 var VALORES = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']];
+
 var App = React.createClass({
 	displayName: 'App',
 
 	getInitialState: function getInitialState() {
 		return {
 			turno: JUGADORX,
-			valores: VALORES
+			valores: VALORES,
+			xMoves: 0,
+			yMoves: 0
 		};
 	},
 	appClick: function appClick(numeroFila, numeroColumna) {
 		var valores = this.state.valores;
 		var nuevoValor = this.state.turno === JUGADORX ? 'X' : '0';
 		valores[numeroFila][numeroColumna] = nuevoValor;
-		this.setState({
-			turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
-			valores: this.state.valores
-		});
+		if (this.state.turno === JUGADORX) {
+			this.setState({
+				turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
+				valores: this.state.valores,
+				xMoves: this.state.xMoves + 1,
+				yMoves: this.state.yMoves
+			});
+		} else {
+			this.setState({
+				turno: this.state.turno === JUGADORX ? JUGADOR0 : JUGADORX,
+				valores: this.state.valores,
+				xMoves: this.state.xMoves,
+				yMoves: this.state.yMoves + 1
+			});
+		}
 	},
 	newGame: function newGame() {
 		this.setState({
 			turno: JUGADORX,
-			valores: VALORES
+			valores: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']],
+			xMoves: 0,
+			yMoves: 0
 		});
 	},
 	checkWinner: function checkWinner() {
@@ -38577,7 +38593,7 @@ var App = React.createClass({
 		return React.createElement(
 			'div',
 			null,
-			React.createElement(Cabecera, { texto: texto }),
+			React.createElement(Cabecera, { texto: texto, xMoves: this.state.xMoves, yMoves: this.state.yMoves }),
 			React.createElement(Tablero, { valores: this.state.valores,
 				manejadorTableroClick: this.appClick,
 				manejadorGanador: this.checkWinner }),
@@ -38602,9 +38618,21 @@ var Cabecera = React.createClass({
 
 	render: function render() {
 		return React.createElement(
-			'header',
-			{ className: 'cabecera' },
-			this.props.texto
+			'div',
+			null,
+			React.createElement(
+				'header',
+				{ className: 'cabecera' },
+				this.props.texto
+			),
+			React.createElement(
+				'header',
+				null,
+				'Movimientos X:',
+				this.props.xMoves,
+				' - Movimientos y:',
+				this.props.yMoves
+			)
 		);
 	}
 });

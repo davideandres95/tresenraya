@@ -4,9 +4,12 @@ var ReactDOM = require('react-dom');
 var Cabecera = React.createClass({
 	render: function(){
 		return(
-			<header className="cabecera">
-				{this.props.texto}
-			</header>
+			<div>
+				<header className="cabecera">
+					{this.props.texto}
+				</header>
+				<header>Movimientos X:{this.props.xMoves} - Movimientos y:{this.props.yMoves}</header>
+			</div>
 		)
 	}
 });
