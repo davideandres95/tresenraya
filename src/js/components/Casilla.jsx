@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var TresEnRayaActions = require('../actions/TresEnRayaActions');
 
 import { Button } from 'react-bootstrap';
 const casillaStyle = {
@@ -10,7 +11,7 @@ const casillaStyle = {
 let Casilla = React.createClass({
 	casillaClick: function (){
 		if (this.props.valor ==="-"){
-			this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
+			TresEnRayaActions.jugarPosicion(this.props.indiceFila, this.props.indiceColumna)
 		}
 	},
 	render: function (){
